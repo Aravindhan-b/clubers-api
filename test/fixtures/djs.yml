@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  genre: MyString
+  active: false
+  contact_number: MyString
+  rate_per_hour: 1
+  address: MyString
+  availablity_hour: MyString
+  availablity_days: MyString
+
+two:
+  name: MyString
+  genre: MyString
+  active: false
+  contact_number: MyString
+  rate_per_hour: 1
+  address: MyString
+  availablity_hour: MyString
+  availablity_days: MyString

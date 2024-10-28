@@ -1,0 +1,2 @@
+class SignatureDish < ApplicationRecord
+end

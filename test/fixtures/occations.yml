@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  special_discounts: 1
+  special_discount_for: MyString
+  genre: MyString
+
+two:
+  name: MyString
+  special_discounts: 1
+  special_discount_for: MyString
+  genre: MyString
