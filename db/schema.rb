@@ -10,9 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_19_113021) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_28_204723) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "club_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "club_drinks", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.bigint "drink_id", null: false
+    t.string "ingredients"
+    t.integer "price"
+    t.integer "discount"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "signature"
+    t.index ["club_id"], name: "index_club_drinks_on_club_id"
+    t.index ["drink_id"], name: "index_club_drinks_on_drink_id"
+  end
+
+  create_table "club_foods", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.bigint "food_id", null: false
+    t.integer "price"
+    t.integer "discount"
+    t.boolean "active"
+    t.string "ingredients"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_club_foods_on_club_id"
+    t.index ["food_id"], name: "index_club_foods_on_food_id"
+  end
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
@@ -31,6 +64,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_19_113021) do
     t.datetime "closing_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "resident_dj_id", null: false
+    t.bigint "occation_id", null: false
+    t.string "category"
+    t.index ["occation_id"], name: "index_clubs_on_occation_id"
+    t.index ["resident_dj_id"], name: "index_clubs_on_resident_dj_id"
   end
 
   create_table "djs", force: :cascade do |t|
@@ -46,6 +84,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_19_113021) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "drinks", force: :cascade do |t|
+    t.string "name"
+    t.string "ingredients"
+    t.integer "price"
+    t.integer "discount"
+    t.boolean "active"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.string "name"
+    t.boolean "veg"
+    t.string "style"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category"
+  end
+
   create_table "occations", force: :cascade do |t|
     t.string "name"
     t.integer "special_discounts"
@@ -53,6 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_19_113021) do
     t.string "genre", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "club_id", null: false
+    t.index ["club_id"], name: "index_occations_on_club_id"
   end
 
   create_table "signature_dishes", force: :cascade do |t|
@@ -88,4 +148,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_19_113021) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "club_drinks", "clubs"
+  add_foreign_key "club_drinks", "drinks"
+  add_foreign_key "club_foods", "clubs"
+  add_foreign_key "club_foods", "foods"
+  add_foreign_key "clubs", "djs", column: "resident_dj_id"
+  add_foreign_key "clubs", "occations"
+  add_foreign_key "occations", "clubs"
 end
