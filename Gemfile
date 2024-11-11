@@ -8,6 +8,9 @@ gem "puma", ">= 5.0"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem 'devise', '~> 4.9.2'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
+gem 'cancancan'
 
 # gem "image_processing", "~> 1.2"
 # gem "rack-cors"
